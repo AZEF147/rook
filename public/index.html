@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduMaster Pro - منصة التعليم الذكية</title>
+  <meta name="description" content="منصة تعليمية متكاملة لجميع التخصصات والمراحل من أولى إعدادي حتى ثالثة ثانوي: تصميم مشرق وعصري، لوجو احترافي، ضغط الكود ورفعه عبر GitHub API، صفحة شخصية وشات خاص لكل طالب، منظومة الدفع بالرقم المرجعي والبطاقات البنكية، باقات اشتراكات شهرية وسنوية، وبث مباشر وسبورة ذكية تفاعلية." />
+  <meta property="og:title" content="EduMaster Pro - منصة التعليم الذكية" />
+  <meta property="og:description" content="منصة تعليمية متكاملة لجميع التخصصات والمراحل من أولى إعدادي حتى ثالثة ثانوي: تصميم مشرق وعصري، لوجو احترافي، ضغط الكود ورفعه عبر GitHub API، صفحة شخصية وشات خاص لكل طالب، منظومة الدفع بالرقم المرجعي والبطاقات البنكية، باقات اشتراكات شهرية وسنوية، وبث مباشر وسبورة ذكية تفاعلية." />
+
+  <!-- Modern Arabic Fonts: Alexandria & Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Alexandria', 'Cairo', 'sans-serif'],
+            cairo: ['Cairo', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Alexandria', 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 40%, #e2e8f0 100%);
+      color: #0f172a;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(203, 213, 225, 0.8);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+  <!-- TOP MODERN VIBRANT NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- LOGO -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="goHome()">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/20 text-white font-black text-xl">
+          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-lg text-slate-900 tracking-tight">EduMaster</span>
+            <span class="px-1.5 py-0.5 rounded-md bg-gradient-to-r from-blue-600 to-indigo-600 text-[10px] font-black text-white uppercase tracking-wider">PRO</span>
+          </div>
+          <p class="text-[10px] font-semibold text-blue-600">منظومة التعليم والمتابعة الذكية</p>
+        </div>
+      </div>
+
+      <!-- CENTER NAV / QUICK ACTIONS -->
+      <div class="hidden md:flex items-center gap-2">
+        <button onclick="switchView('live')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+          البث المباشر
+        </button>
+        <button onclick="switchView('courses')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 transition">
+          المحاضرات والمناهج
+        </button>
+        <button onclick="switchView('plans')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 transition">
+          باقات الاشتراكات
+        </button>
+        <button onclick="openWhatsNewModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 transition flex items-center gap-1">
+          <span>✨</span> ما الجديد؟
+        </button>
+      </div>
+
+      <!-- RIGHT SIDE: USER PROFILE & ACTIONS -->
+      <div class="flex items-center gap-2">
+
+        <!-- GitHub Modal Button -->
+        <button onclick="openGitHubModal()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition border border-slate-200" title="مزامنة مع مستودع GitHub">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </button>
+
+        <!-- Current Role Badge & Switch / Logout -->
+        <div id="navUserArea" class="flex items-center gap-2"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div id="mainContent" class="space-y-6"></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-700">EduMaster Pro &copy; 2026</span>
+        <span>• جميع التخصصات والمراحل الإعدادية والثانوية</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- FLOATING MODAL OVERLAY (UNIVERSAL) -->
+  <div id="modalOverlay" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div id="modalContent" class="bg-white rounded-3xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 animate-fade-in max-h-[90vh] overflow-y-auto custom-scroll">
+    </div>
+  </div>
+
+  <script>
+    // Global Application State
+    let appState = {
+      user: null, // role: 'teacher' | 'supervisor' | 'student' | null
+      activeTab: 'home',
+      grades: [
+        { id: 'prep1', name: 'الصف الأول الإعدادي', stage: 'إعدادي' },
+        { id: 'prep2', name: 'الصف الثاني الإعدادي', stage: 'إعدادي' },
+        { id: 'prep3', name: 'الصف الثالث الإعدادي', stage: 'إعدادي' },
+        { id: 'sec1', name: 'الصف الأول الثانوي', stage: 'ثانوي' },
+        { id: 'sec2', name: 'الصف الثاني الثانوي', stage: 'ثانوي' },
+        { id: 'sec3', name: 'الصف الثالث الثانوي', stage: 'ثانوي' }
+      ],
+      specializations: [
+        { id: 'math', name: 'الرياضيات', icon: '📐', desc: 'جبر، هندسة، تفاضل وتكامل، استاتيكا وديناميكا' },
+        { id: 'physics', name: 'الفيزياء', icon: '⚡', desc: 'الكهربية، المغناطيسية، الحديثة' },
+        { id: 'chemistry', name: 'الكيمياء', icon: '🧪', desc: 'العضوية، التحليلية، الكهربية والاتزان' },
+        { id: 'biology', name: 'الأحياء', icon: '🧬', desc: 'الوراثة، التكاثر، المناعة' },
+        { id: 'arabic', name: 'اللغة العربية', icon: '📖', desc: 'النحو، البلاغة، الأدب والنصوص' },
+        { id: 'english', name: 'اللغة الإنجليزية', icon: '🔤', desc: 'Grammar & Skills' }
+      ],
+      teachers: [
+        {
+          id: 't1',
+          name: 'أ/ أحمد فؤاد النجار',
+          email: 'teacher@edumaster.pro',
+          password: 'teacher123',
+          spec: 'الرياضيات',
+          code: 'MTH-EGY-2026',
+          phone: '01012345678',
+          rating: 5.0,
+          studentsCount: 0,
+          bio: 'خبير مادة الرياضيات للمراحل الإعدادية والثانوية العامة',
+          grades: ['sec1', 'sec2', 'sec3', 'prep3'],
+          avatar: '👨‍🏫'
+        }
+      ],
+      supervisors: [],
+      students: [],
+      books: [],
+      videos: [],
+      exams: [],
+      attendanceLogs: [],
+      paymentTransactions: [],
+      teacherFinancials: {
+        bankName: 'البنك الأهلي المصري',
+        accountHolder: 'أ/ أحمد فؤاد النجار',
+        cardNumber: '5241 •••• •••• 9821',
+        iban: 'EG4500020001000000123456789',
+        instapay: 'ahmed.fouad@instapay',
+        vodafoneCash: '01012345678',
+        instructions: 'يرجى تحويل رسوم الاشتراك عبر المحفظة الإلكترونية أو إنستاباي أو الحساب البنكي، والاحتفاظ بالرقم المرجعي التلقائي لتأكيد التفعيل فوراً.',
+        plans: [
+          { id: 'plan_1m', name: 'اشتراك شهري (1 شهر)', durationMonths: 1, price: 250, desc: 'فتح جميع المحاضرات والشروحات والواجبات للشهر الحالي' },
+          { id: 'plan_3m', name: 'اشتراك فصلي (3 شهور)', durationMonths: 3, price: 650, desc: 'شامل الفصل الدراسي بالكامل وبنوك الأسئلة والمراجعات' },
+          { id: 'plan_6m', name: 'اشتراك نصف سنوي (6 شهور)', durationMonths: 6, price: 1100, desc: 'متابعة شاملة واختبارات دورية حتى امتحانات نصف العام' },
+          { id: 'plan_1y', name: 'اشتراك سنوي كامل (سنة)', durationMonths: 12, price: 1950, desc: 'شامل المنهج بالكامل والمراجعات النهائية وليالي الامتحان' }
+        ]
+      },
+      liveStream: {
+        isLive: true,
+        title: 'البث المباشر التفاعلي والمراجعة الشاملة',
+        teacher: 'أ/ أحمد فؤاد النجار',
+        teacherSpec: 'الرياضيات - الثانوية العامة',
+        grade: 'الصف الثالث الثانوي',
+        startedAt: 'الآن',
+        viewersCount: 0,
+        currentSpeaker: null,
+        activePoll: null,
+        messages: [],
+        micRequests: []
+      },
+      whatsNew: [
+        { id: 'wn1', title: 'إطلاق الإصدار الجديد الفائق السرعة', desc: 'واجهة عصرية بتصميم مشرق وألوان زاهية بدون لاج.', date: 'اليوم' },
+        { id: 'wn2', title: 'تفعيل نظام الدفع الذكي بالرقم المرجعي', desc: 'اشترك الآن واحصل على تفعيل فوري لجميع محاضرات المدرس.', date: 'اليوم' }
+      ],
+      directChats: {}
+    };
+
+    // Initialize App
+    async function initApp() {
+      // 1. Immediate visual rendering from rock-solid defaults (no blank frame)
+      const savedUser = localStorage.getItem('edumaster_user');
+      if (savedUser) {
+        try {
+          appState.user = JSON.parse(savedUser);
+        } catch (e) {}
+      }
+      updateNavUser();
+      renderCurrentView();
+
+      // Show onboarding modal on first load if not logged in
+      if (!savedUser && !sessionStorage.getItem('edumaster_onboarding_shown')) {
+        sessionStorage.setItem('edumaster_onboarding_shown', 'true');
+        showOnboardingModal();
+      }
+
+      // 2. Fetch server state with automatic silent retry
+      async function syncServerState(attempt = 1) {
+        try {
+          const res = await fetch('/api/state');
+          if (!res.ok) throw new Error('Status: ' + res.status);
+          const json = await res.json();
+          if (json && json.success && json.data) {
+            appState = { ...appState, ...json.data };
+            updateNavUser();
+            renderCurrentView();
+          }
+        } catch (err) {
+          console.warn('Sync attempt ' + attempt + ': ' + err.message);
+          if (attempt < 3) {
+            setTimeout(() => syncServerState(attempt + 1), 1500);
+          }
+        }
+      }
+
+      syncServerState();
+    }
+
+    // ONBOARDING MODAL
+    function showOnboardingModal() {
+      const modal = document.getElementById('modalContent');
+      modal.innerHTML = `
+        <div class="text-center space-y-4">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/30 text-white text-3xl font-black">
+            🎓
+          </div>
+          <div>
+            <h2 class="text-2xl font-black text-slate-900">مرحباً بك في EduMaster Pro</h2>
+            <p class="text-xs text-slate-500 mt-1 font-medium">المنصة التعليمية الذكية الأقوى للمراحل الإعدادية والثانوية العامة</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-right pt-2">
+            <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100">
+              <span class="text-xl">🔴</span>
+              <h4 class="font-bold text-xs text-blue-900 mt-1">بث مباشر وسبورة</h4>
+              <p class="text-[11px] text-blue-700 mt-0.5">حصص تفاعلية وطلب مايك فوري مع المدرس.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-100">
+              <span class="text-xl">💳</span>
+              <h4 class="font-bold text-xs text-indigo-900 mt-1">سداد ذكي برقم مرجعي</h4>
+              <p class="text-[11px] text-indigo-700 mt-0.5">اشتراكات شهرية وسنوية وتفعيل فوري للمحاضرات.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-100">
+              <span class="text-xl">💬</span>
+              <h4 class="font-bold text-xs text-emerald-900 mt-1">متابعة وشات خاص</h4>
+              <p class="text-[11px] text-emerald-700 mt-0.5">صفحة شخصية لكل طالب وتواصل مباشر مع المشرفين.</p>
+            </div>
+          </div>
+
+          <div class="pt-4 flex flex-col sm:flex-row items-center gap-3">
+            <button onclick="showAuthModal('register')" class="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-500/25 transition">
+              🚀 إنشاء حساب طالب جديد
+            </button>
+            <button onclick="showAuthModal('login')" class="w-full py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition">
+              تسجيل الدخول (طالب / مدرس / مشرف)
+            </button>
+          </div>
+
+          <div class="pt-1">
+            <button onclick="closeModal(); switchView('home');" class="text-xs text-slate-400 hover:text-slate-600 underline">
+              تخطي والدخول كزائر
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    // AUTH MODAL (Login / Register)
+    function showAuthModal(mode = 'login') {
+      const modal = document.getElementById('modalContent');
+      if (mode === 'register') {
+        modal.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 class="text-lg font-black text-slate-900">انضمام طالب جديد</h3>
+                <p class="text-xs text-slate-500">سجل بياناتك للوصول إلى الحصص والمذكرات والشات الخاص</p>
+              </div>
+              <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+            </div>
+
+            <form id="regForm" onsubmit="handleRegisterStudent(event)" class="space-y-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">اسم الطالب رباعي *</label>
+                <input type="text" id="regName" required placeholder="مثال: أحمد محمد علي حسن" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-xs font-semibold outline-none" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">رقم هاتف الطالب (واتساب) *</label>
+                  <input type="tel" id="regPhone" required placeholder="010XXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-xs font-semibold outline-none" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">رقم هاتف ولي الأمر *</label>
+                  <input type="tel" id="regParentPhone" required placeholder="011XXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-xs font-semibold outline-none" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">المرحلة / السنة الدراسية *</label>
+                  <select id="regGrade" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none bg-white">
+                    ${(appState.grades || []).map(g => `<option value="${g.id}">${g.name}</option>`).join('')}
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">المادة المطلوبة (اختياري)</label>
+                  <select id="regSubject" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none bg-white">
+                    ${(appState.specializations || []).map(s => `<option value="${s.name}">${s.icon} ${s.name}</option>`).join('')}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">كود المدرس (إن وُجد):</label>
+                <input type="text" id="regCode" placeholder="MTH-EGY-2026" value="MTH-EGY-2026" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none uppercase" />
+                <p class="text-[10px] text-slate-400 mt-1">كود مدرس الرياضيات الحالي للتجربة: MTH-EGY-2026</p>
+              </div>
+
+              <div class="pt-2 flex items-center justify-between gap-3">
+                <button type="submit" class="flex-1 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition">
+                  تأكيد التسجيل والدخول
+                </button>
+                <button type="button" onclick="showAuthModal('login')" class="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">
+                  لديك حساب؟ ادخل هنا
+                </button>
+              </div>
+            </form>
+          </div>
+        `;
+      } else {
+        modal.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 class="text-lg font-black text-slate-900">تسجيل الدخول للمنصة</h3>
+                <p class="text-xs text-slate-500">اختر نوع حسابك للدخول السريع</p>
+              </div>
+              <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+            </div>
+
+            <div class="flex items-center gap-2 p-1 bg-slate-100 rounded-2xl">
+              <button onclick="setAuthRole('student')" id="btnRoleStudent" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white shadow-sm text-blue-600">طالب</button>
+              <button onclick="setAuthRole('teacher')" id="btnRoleTeacher" class="flex-1 py-2 text-xs font-bold rounded-xl text-slate-600">مدرس</button>
+              <button onclick="setAuthRole('supervisor')" id="btnRoleSupervisor" class="flex-1 py-2 text-xs font-bold rounded-xl text-slate-600">مشرف</button>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-3">
+              <div id="loginFieldArea">
+                <label class="block text-xs font-bold text-slate-700 mb-1">رقم هاتف الطالب المسجل:</label>
+                <input type="tel" id="loginPhone" required placeholder="010XXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none" />
+              </div>
+
+              <div id="loginPassArea" class="hidden">
+                <label class="block text-xs font-bold text-slate-700 mb-1">كلمة المرور:</label>
+                <input type="password" id="loginPass" placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none" />
+                <p id="demoCredsHint" class="text-[11px] text-blue-600 mt-1 font-semibold"></p>
+              </div>
+
+              <button type="submit" class="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition">
+                تسجيل الدخول الآن
+              </button>
+
+              <div class="text-center pt-2">
+                <button type="button" onclick="showAuthModal('register')" class="text-xs text-blue-600 hover:underline font-bold">
+                  ليس لديك حساب بعد؟ سجل كطالب جديد هنا
+                </button>
+              </div>
+            </form>
+          </div>
+        `;
+      }
+      document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    let currentAuthRole = 'student';
+    function setAuthRole(role) {
+      currentAuthRole = role;
+      document.getElementById('btnRoleStudent').className = role === 'student' ? 'flex-1 py-2 text-xs font-bold rounded-xl bg-white shadow-sm text-blue-600' : 'flex-1 py-2 text-xs font-bold rounded-xl text-slate-600';
+      document.getElementById('btnRoleTeacher').className = role === 'teacher' ? 'flex-1 py-2 text-xs font-bold rounded-xl bg-white shadow-sm text-blue-600' : 'flex-1 py-2 text-xs font-bold rounded-xl text-slate-600';
+      document.getElementById('btnRoleSupervisor').className = role === 'supervisor' ? 'flex-1 py-2 text-xs font-bold rounded-xl bg-white shadow-sm text-blue-600' : 'flex-1 py-2 text-xs font-bold rounded-xl text-slate-600';
+
+      const fieldArea = document.getElementById('loginFieldArea');
+      const passArea = document.getElementById('loginPassArea');
+      const hint = document.getElementById('demoCredsHint');
+
+      if (role === 'student') {
+        fieldArea.innerHTML = `
+          <label class="block text-xs font-bold text-slate-700 mb-1">رقم هاتف الطالب المسجل:</label>
+          <input type="tel" id="loginPhone" required placeholder="010XXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none" />
+        `;
+        passArea.classList.add('hidden');
+      } else if (role === 'teacher') {
+        fieldArea.innerHTML = `
+          <label class="block text-xs font-bold text-slate-700 mb-1">البريد الإلكتروني للمعلم:</label>
+          <input type="email" id="loginEmail" required value="teacher@edumaster.pro" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none" />
+        `;
+        passArea.classList.remove('hidden');
+        document.getElementById('loginPass').value = 'teacher123';
+        hint.innerText = 'حساب تجريبي للمعلم جاهز: teacher@edumaster.pro / teacher123';
+      } else if (role === 'supervisor') {
+        fieldArea.innerHTML = `
+          <label class="block text-xs font-bold text-slate-700 mb-1">البريد الإلكتروني للمشرف:</label>
+          <input type="email" id="loginEmail" required value="supervisor@edumaster.pro" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 text-xs font-semibold outline-none" />
+        `;
+        passArea.classList.remove('hidden');
+        document.getElementById('loginPass').value = 'pass1234';
+        hint.innerText = 'حساب تجريبي للمشرف مفوض من المدرس: supervisor@edumaster.pro / pass1234';
+      }
+    }
+
+    async function handleRegisterStudent(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const parentPhone = document.getElementById('regParentPhone').value.trim();
+      const grade = document.getElementById('regGrade').value;
+      const subject = document.getElementById('regSubject').value;
+      const teacherCode = document.getElementById('regCode').value.trim();
+
+      try {
+        const res = await fetch('/api/register-student', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, parentPhone, grade, subject, teacherCode })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.user = data.user;
+          localStorage.setItem('edumaster_user', JSON.stringify(data.user));
+          updateNavUser();
+          closeModal();
+          openWhatsNewModal();
+          renderCurrentView();
+        } else {
+          alert(data.message || 'حدث خطأ في التسجيل');
+        }
+      } catch (err) {
+        alert('تعذر الاتصال بالخادم: ' + err.message);
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      let payload = { role: currentAuthRole };
+      if (currentAuthRole === 'student') {
+        payload.studentPhone = document.getElementById('loginPhone').value.trim();
+      } else {
+        payload.email = document.getElementById('loginEmail').value.trim();
+        payload.password = document.getElementById('loginPass').value.trim();
+      }
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.user = data.user;
+          localStorage.setItem('edumaster_user', JSON.stringify(data.user));
+          updateNavUser();
+          closeModal();
+          renderCurrentView();
+        } else {
+          alert(data.message || 'بيانات الدخول غير صحيحة');
+        }
+      } catch (err) {
+        alert('تعذر الدخول: ' + err.message);
+      }
+    }
+
+    function logout() {
+      appState.user = null;
+      localStorage.removeItem('edumaster_user');
+      updateNavUser();
+      renderCurrentView();
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.add('hidden');
+    }
+
+    function updateNavUser() {
+      const area = document.getElementById('navUserArea');
+      if (appState.user) {
+        let badgeColor = 'bg-blue-100 text-blue-700';
+        let roleName = 'طالب';
+        if (appState.user.role === 'teacher') {
+          badgeColor = 'bg-indigo-100 text-indigo-800';
+          roleName = 'مدرس المنصة';
+        } else if (appState.user.role === 'supervisor') {
+          badgeColor = 'bg-emerald-100 text-emerald-800';
+          roleName = 'مشرف معتمد';
+        }
+
+        area.innerHTML = `
+          <div class="flex items-center gap-2">
+            <button onclick="openPersonalProfile()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
+              <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-[11px] font-bold flex items-center justify-center">
+                ${appState.user.name ? appState.user.name.charAt(0) : '👤'}
+              </span>
+              <div class="text-right hidden sm:block">
+                <p class="text-xs font-bold text-slate-800 leading-tight">${appState.user.name}</p>
+                <span class="text-[10px] font-semibold px-1.5 py-0.2 rounded-md ${badgeColor}">${roleName}</span>
+              </div>
+            </button>
+            <button onclick="logout()" title="تسجيل الخروج" class="p-1.5 rounded-xl hover:bg-rose-50 text-slate-400 hover:text-rose-600 text-xs">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            </button>
+          </div>
+        `;
+      } else {
+        area.innerHTML = `
+          <button onclick="showAuthModal('login')" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+            دخول
+          </button>
+          <button onclick="showAuthModal('register')" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm shadow-blue-500/20 transition">
+            حساب جديد
+          </button>
+        `;
+      }
+    }
+
+    function switchView(tab) {
+      appState.activeTab = tab;
+      renderCurrentView();
+    }
+
+    function goHome() {
+      switchView('home');
+    }
+
+    // MAIN VIEW ROUTER
+    function renderCurrentView() {
+      const container = document.getElementById('mainContent');
+      
+      // If Teacher / Supervisor
+      if (appState.user && (appState.user.role === 'teacher' || appState.user.role === 'supervisor')) {
+        renderStaffDashboard(container);
+        return;
+      }
+
+      // If Student or Guest
+      if (appState.activeTab === 'live') {
+        renderLiveStudio(container);
+      } else if (appState.activeTab === 'courses') {
+        renderCoursesView(container);
+      } else if (appState.activeTab === 'plans') {
+        renderSubscriptionPlansView(container);
+      } else {
+        renderStudentHome(container);
+      }
+    }
+
+    // STUDENT / GUEST HOME VIEW
+    function renderStudentHome(container) {
+      const realCount = appState.students.length;
+      container.innerHTML = `
+        <!-- HERO GREETING -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 text-white relative overflow-hidden shadow-lg shadow-blue-500/10">
+          <div class="relative z-10 max-w-2xl space-y-3">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold text-white">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              العام الدراسي 2026 - نظام المتابعة المستمرة
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-black leading-tight">
+              أهلاً بك في منصة EduMaster Pro الذكية!
+            </h1>
+            <p class="text-xs sm:text-sm text-blue-100 font-medium leading-relaxed">
+              شاهد البث المباشر مع أستاذ المادة، تفاعل مع السبورة الذكية واطلب المايك، واشترك في الباقات الشهرية لتفعيل كامل المحاضرات بالرقم المرجعي التلقائي.
+            </p>
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <button onclick="switchView('live')" class="px-5 py-2.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 text-xs font-black shadow-md transition flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                دخول البث المباشر الآن
+              </button>
+              <button onclick="switchView('plans')" class="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/30 text-white text-xs font-bold backdrop-blur-md transition">
+                💳 باقات الاشتراكات والسداد
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- REAL-TIME STATS COUNTER -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="glass-card rounded-2xl p-4 text-center">
+            <span class="text-2xl">👥</span>
+            <p class="text-2xl font-black text-slate-900 mt-1">${realCount}</p>
+            <p class="text-[11px] font-bold text-slate-500">الطلاب المسجلون فعلياً</p>
+          </div>
+          <div class="glass-card rounded-2xl p-4 text-center">
+            <span class="text-2xl">🔴</span>
+            <p class="text-2xl font-black text-emerald-600 mt-1">مباشر</p>
+            <p class="text-[11px] font-bold text-slate-500">استوديو الشرح التفاعلي</p>
+          </div>
+          <div class="glass-card rounded-2xl p-4 text-center">
+            <span class="text-2xl">📚</span>
+            <p class="text-2xl font-black text-blue-600 mt-1">${appState.videos.length}</p>
+            <p class="text-[11px] font-bold text-slate-500">المحاضرات المتاحة</p>
+          </div>
+          <div class="glass-card rounded-2xl p-4 text-center">
+            <span class="text-2xl">🛡️</span>
+            <p class="text-2xl font-black text-indigo-600 mt-1">${appState.supervisors.length}</p>
+            <p class="text-[11px] font-bold text-slate-500">المشرفون المتواجدون</p>
+          </div>
+        </div>
+
+        <!-- STAGES & GRADES SELECTOR -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-black text-slate-900">المراحل التعليمية</h3>
+            <span class="text-xs text-blue-600 font-bold">من 1 إعدادي إلى 3 ثانوي</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            ${(appState.grades || []).map(g => `
+              <div onclick="switchView('courses')" class="glass-card rounded-2xl p-4 cursor-pointer hover:border-blue-500 hover:shadow-sm transition flex items-center justify-between group">
+                <h4 class="text-sm font-bold text-slate-900">${g.name}</h4>
+                <span class="text-slate-400 group-hover:text-blue-600 text-base transition mr-2">←</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // STUDENT COURSES & VIDEOS VIEW
+    function renderCoursesView(container) {
+      const isSubscribed = appState.user && appState.user.hasPaid;
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-black text-slate-900">المحاضرات والشروحات المسجلة</h2>
+              <p class="text-xs text-slate-500 mt-0.5">محاضرات عالية الجودة Full HD مع بنوك الأسئلة المحلولة</p>
+            </div>
+            ${isSubscribed ? `
+              <span class="px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5">
+                <span>✅</span> اشتراكك مفعل (${appState.user.subscriptionPlan || 'نشط'})
+              </span>
+            ` : `
+              <button onclick="switchView('plans')" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition flex items-center gap-1.5">
+                <span>🔓</span> اشترك الآن لفتح جميع المحاضرات
+              </button>
+            `}
+          </div>
+
+          ${appState.videos.length === 0 ? `
+            <div class="glass-card rounded-3xl p-10 text-center space-y-3">
+              <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl font-bold">
+                📹
+              </div>
+              <h3 class="text-base font-bold text-slate-800">لا توجد محاضرات مضافة حالياً في هذا القسم</h3>
+              <p class="text-xs text-slate-500 max-w-md mx-auto">يقوم المعلم والمشرفون برفع المحاضرات والمذكرات أولاً بأول. سيتم إشعارك فور إضافة أي محاضرة جديدة.</p>
+            </div>
+          ` : `
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              ${(appState.videos || []).map(v => `
+                <div class="glass-card rounded-2xl overflow-hidden border border-slate-200 flex flex-col justify-between">
+                  <div class="p-4 space-y-2">
+                    <div class="flex items-center justify-between text-[11px] font-bold">
+                      <span class="text-blue-600">${v.grade}</span>
+                      <span class="text-slate-400">${v.duration}</span>
+                    </div>
+                    <h4 class="font-black text-sm text-slate-900">${v.title}</h4>
+                    <p class="text-xs text-slate-500">${v.teacherName}</p>
+                  </div>
+                  <div class="p-4 pt-0 border-t border-slate-100 mt-2">
+                    ${isSubscribed ? `
+                      <button onclick="alert('جاري تشغيل المحاضرة بجودة 1080p مع حماية الشاشة')" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                        <span>▶️</span> تشغيل المحاضرة الآن
+                      </button>
+                    ` : `
+                      <button onclick="switchView('plans')" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center justify-center gap-1.5">
+                        <span>🔒</span> مقفلة - اضغط للاشتراك
+                      </button>
+                    `}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // SUBSCRIPTION PLANS & DYNAMIC REFERENCE CODE PAYMENT VIEW
+    function renderSubscriptionPlansView(container) {
+      const plans = (appState.teacherFinancials && appState.teacherFinancials.plans) || [
+        { id: 'plan_1m', name: 'اشتراك شهري (1 شهر)', durationMonths: 1, price: 250, desc: 'فتح جميع المحاضرات والشروحات للشهر الحالي' },
+        { id: 'plan_3m', name: 'اشتراك فصلي (3 شهور)', durationMonths: 3, price: 650, desc: 'شامل الفصل الدراسي بالكامل وبنوك الأسئلة والمراجعات' },
+        { id: 'plan_6m', name: 'اشتراك نصف سنوي (6 شهور)', durationMonths: 6, price: 1100, desc: 'متابعة شاملة واختبارات دورية حتى امتحانات نصف العام' },
+        { id: 'plan_1y', name: 'اشتراك سنوي كامل (سنة)', durationMonths: 12, price: 1950, desc: 'شامل المنهج بالكامل والمراجعات النهائية وليالي الامتحان' }
+      ];
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="text-center max-w-xl mx-auto space-y-2">
+            <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">باقات الاشتراك المعتمدة</span>
+            <h2 class="text-2xl font-black text-slate-900">اختر خطة الاشتراك المناسبة لك</h2>
+            <p class="text-xs text-slate-500 font-medium">سداد سهل ومباشر عبر الرقم المرجعي الفريد، مع تفعيل فوري لجميع المحاضرات والمذكرات.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            ${(plans || []).map(p => `
+              <div class="glass-card rounded-3xl p-5 border border-slate-200 flex flex-col justify-between hover:border-blue-500 hover:shadow-lg transition relative ${p.id === 'plan_1y' ? 'ring-2 ring-blue-500' : ''}">
+                ${p.id === 'plan_1y' ? `
+                  <span class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-blue-600 text-[10px] font-black text-white">الأكثر توفيراً</span>
+                ` : ''}
+                <div class="space-y-3">
+                  <div class="space-y-1">
+                    <h3 class="font-black text-sm text-slate-900">${p.name}</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">${p.desc}</p>
+                  </div>
+                  <div class="flex items-baseline gap-1 pt-2">
+                    <span class="text-3xl font-black text-blue-600">${p.price}</span>
+                    <span class="text-xs font-bold text-slate-600">جنيه مصري</span>
+                  </div>
+                </div>
+
+                <div class="pt-6">
+                  <button onclick="startPaymentFlow('${p.id}')" class="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-1.5">
+                    <span>💳</span> اشترك وسدد الآن
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // PAYMENT FLOW WITH AUTO REFERENCE CODE
+    async function startPaymentFlow(planId) {
+      if (!appState.user) {
+        alert('يرجى تسجيل الدخول أو إنشاء حساب طالب أولاً للمتابعة.');
+        showAuthModal('register');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/payments/create-ref', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            studentId: appState.user.id,
+            studentName: appState.user.name,
+            planId: planId
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showPaymentModal(data.transaction, data.financials);
+        }
+      } catch (err) {
+        alert('تعذر إنشاء الرقم المرجعي: ' + err.message);
+      }
+    }
+
+    function showPaymentModal(tx, financials) {
+      const modal = document.getElementById('modalContent');
+      modal.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="text-lg font-black text-slate-900">سداد الاشتراك بالرقم المرجعي</h3>
+              <p class="text-xs text-slate-500">${tx.planName} - المبلغ: ${tx.amount} ${tx.currency}</p>
+            </div>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+          </div>
+
+          <!-- AUTO-GENERATED REFERENCE CODE BOX -->
+          <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-center space-y-1">
+            <span class="text-[11px] font-bold text-blue-700 uppercase tracking-wider">الرقم المرجعي التلقائي لعمليتك (فريد وخاص بك)</span>
+            <div class="text-2xl font-black font-mono tracking-widest text-blue-900 py-1" id="dispRefCode">
+              ${tx.refCode}
+            </div>
+            <p class="text-[10px] text-blue-600 font-medium">احتفظ بهذا الرقم أو ضعه في ملاحظات التحويل لضمان التفعيل الفوري.</p>
+          </div>
+
+          <!-- TEACHER BANK & WALLET DETAILS -->
+          <div class="space-y-2 text-xs">
+            <h4 class="font-bold text-slate-800">بيانات التحويل المعتمدة للمدرس:</h4>
+            
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">اسم صاحب الحساب / المعلم:</span>
+                <span class="font-bold text-slate-900">${financials.accountHolder}</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">محفظة فودافون كاش:</span>
+                <span class="font-bold text-blue-600 font-mono text-sm">${financials.vodafoneCash}</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">إنستاباي (InstaPay):</span>
+                <span class="font-bold text-indigo-600 font-mono">${financials.instapay}</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500">رقم البطاقة / الحساب البنكي:</span>
+                <span class="font-bold text-slate-900 font-mono">${financials.cardNumber}</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-500 leading-relaxed bg-amber-50 p-2.5 rounded-xl border border-amber-200 text-amber-800">
+              💡 ${financials.instructions}
+            </p>
+          </div>
+
+          <!-- CONFIRMATION ACTION -->
+          <div class="pt-2 space-y-2">
+            <button onclick="confirmPayment('${tx.refCode}')" id="btnConfirmPay" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+              <span>✅</span> لقد قمت بالتحويل - تفعيل الاشتراك فوراً
+            </button>
+            <p class="text-[10px] text-center text-slate-400">بمجرد الضغط سيتم فتح كافة الفيديوهات والحصص المسجلة لحسابك فورياً.</p>
+          </div>
+        </div>
+      `;
+      document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    async function confirmPayment(refCode) {
+      const btn = document.getElementById('btnConfirmPay');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'جاري التحقق وتفعيل الاشتراك...';
+      }
+
+      try {
+        const res = await fetch('/api/payments/confirm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            refCode: refCode,
+            studentId: appState.user.id
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.user = data.student;
+          localStorage.setItem('edumaster_user', JSON.stringify(data.student));
+          alert(data.message);
+          closeModal();
+          switchView('courses');
+        }
+      } catch (err) {
+        alert('تعذر إكمال التفعيل: ' + err.message);
+      }
+    }
+
+    // LIVE STUDIO & INTERACTIVE WHITEBOARD & MIC QUEUE
+    function renderLiveStudio(container) {
+      const live = appState.liveStream || {};
+      const isTeacherOrSup = appState.user && (appState.user.role === 'teacher' || appState.user.role === 'supervisor');
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- LEFT / MAIN: LIVE STREAM & WHITEBOARD -->
+          <div class="lg:col-span-2 space-y-4">
+            
+            <!-- HEADER -->
+            <div class="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200">
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 rounded-full bg-rose-500 animate-ping"></span>
+                <div>
+                  <h3 class="font-black text-sm text-slate-900">${live.title}</h3>
+                  <p class="text-[11px] text-slate-500">${live.teacher} • ${live.grade}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">
+                  👀 الحضور: ${live.viewersCount}
+                </span>
+                ${live.currentSpeaker ? `
+                  <span class="px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-bold flex items-center gap-1">
+                    <span>🎙️</span> المتحدث: ${live.currentSpeaker}
+                  </span>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- WHITEBOARD / VIDEO CANVAS -->
+            <div class="glass-card rounded-3xl p-3 border border-slate-200 overflow-hidden relative">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-100 mb-2">
+                <span class="text-xs font-bold text-slate-700">🎨 السبورة الذكية التفاعلية للشرح</span>
+                <div class="flex items-center gap-2">
+                  <button onclick="clearWhiteboard()" class="px-2 py-1 rounded-lg bg-slate-100 text-slate-600 text-[11px] font-bold hover:bg-slate-200">مسح السبورة</button>
+                  <button onclick="setBoardColor('#2563eb')" class="w-5 h-5 rounded-full bg-blue-600 ring-2 ring-white"></button>
+                  <button onclick="setBoardColor('#dc2626')" class="w-5 h-5 rounded-full bg-rose-600 ring-2 ring-white"></button>
+                  <button onclick="setBoardColor('#16a34a')" class="w-5 h-5 rounded-full bg-emerald-600 ring-2 ring-white"></button>
+                </div>
+              </div>
+              <canvas id="whiteboardCanvas" width="800" height="420" class="w-full bg-white rounded-2xl border border-slate-200 cursor-crosshair shadow-inner"></canvas>
+            </div>
+
+            <!-- CONTROLS & MIC QUEUE -->
+            <div class="flex items-center justify-between bg-white p-3.5 rounded-2xl border border-slate-200">
+              <div class="flex items-center gap-2">
+                ${isTeacherOrSup ? `
+                  <span class="text-xs font-bold text-indigo-700">لوحة تحكم المحاضر والمشرف</span>
+                ` : `
+                  <button onclick="requestLiveMic()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+                    <span>✋</span> طلب المايك للتحدث والمشاركة
+                  </button>
+                `}
+              </div>
+              <div class="text-xs font-semibold text-slate-500">
+                الصوت والفيديو بتقنية WebRTC بدون لاج
+              </div>
+            </div>
+
+            <!-- MIC REQUESTS FOR TEACHER / SUPERVISOR -->
+            ${isTeacherOrSup ? `
+              <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                <h4 class="font-bold text-xs text-slate-800">قائمة طلبات التحدث بالمايك من الطلاب:</h4>
+                <div class="space-y-2">
+                  ${(live.micRequests || []).length === 0 ? '<p class="text-xs text-slate-400">لا توجد طلبات مايك معلقة حالياً.</p>' : ''}
+                  ${(live.micRequests || []).map(r => `
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                      <div>
+                        <span class="font-bold text-xs text-slate-800">${r.studentName}</span>
+                        <span class="text-[10px] text-slate-400">(${r.grade})</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        ${r.status === 'pending' ? `
+                          <button onclick="handleMic('${r.id}', 'approve')" class="px-3 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold">قبول المايك</button>
+                        ` : `
+                          <button onclick="handleMic('${r.id}', 'mute')" class="px-3 py-1 rounded-lg bg-rose-600 text-white text-xs font-bold">كتم الصوت</button>
+                        `}
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+          </div>
+
+          <!-- RIGHT: LIVE CHAT -->
+          <div class="space-y-4">
+            <div class="glass-card rounded-3xl p-4 border border-slate-200 h-[560px] flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                  <h4 class="font-black text-xs text-slate-900">شات المحاضرة المباشرة</h4>
+                  <span class="text-[10px] font-bold text-emerald-600">نشط الآن</span>
+                </div>
+                <div id="liveChatMessages" class="mt-3 space-y-2.5 overflow-y-auto max-h-[420px] custom-scroll pr-1">
+                  ${(live.messages || []).map(m => `
+                    <div class="p-2.5 rounded-2xl ${m.role === 'teacher' ? 'bg-indigo-50 border border-indigo-100 text-indigo-900' : (m.role === 'supervisor' ? 'bg-emerald-50 border border-emerald-100' : 'bg-slate-50 border border-slate-100')}">
+                      <div class="flex items-center justify-between text-[10px] font-bold text-slate-500 mb-0.5">
+                        <span>${m.user} ${m.role === 'teacher' ? '👨‍🏫 (المعلم)' : (m.role === 'supervisor' ? '🛡️ (مشرف)' : '')}</span>
+                        <span>${m.time}</span>
+                      </div>
+                      <p class="text-xs text-slate-800 font-medium">${m.text}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- CHAT INPUT -->
+              <form onsubmit="sendLiveMessage(event)" class="pt-3 border-t border-slate-100 flex items-center gap-2">
+                <input type="text" id="liveChatInput" placeholder="اكتب سؤالك أو مشاركتك..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs font-semibold outline-none focus:border-blue-600" />
+                <button type="submit" class="p-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      `;
+
+      initWhiteboard();
+    }
+
+    // WHITEBOARD ENGINE
+    let currentColor = '#2563eb';
+    function setBoardColor(c) { currentColor = c; }
+    function clearWhiteboard() {
+      const cvs = document.getElementById('whiteboardCanvas');
+      if (cvs) {
+        const ctx = cvs.getContext('2d');
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
+      }
+    }
+    function initWhiteboard() {
+      const cvs = document.getElementById('whiteboardCanvas');
+      if (!cvs) return;
+      const ctx = cvs.getContext('2d');
+      let drawing = false;
+
+      cvs.onmousedown = (e) => {
+        drawing = true;
+        ctx.beginPath();
+        const rect = cvs.getBoundingClientRect();
+        ctx.moveTo((e.clientX - rect.left) * (cvs.width / rect.width), (e.clientY - rect.top) * (cvs.height / rect.height));
+      };
+      cvs.onmousemove = (e) => {
+        if (!drawing) return;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = currentColor;
+        const rect = cvs.getBoundingClientRect();
+        ctx.lineTo((e.clientX - rect.left) * (cvs.width / rect.width), (e.clientY - rect.top) * (cvs.height / rect.height));
+        ctx.stroke();
+      };
+      cvs.onmouseup = () => { drawing = false; };
+      cvs.onmouseleave = () => { drawing = false; };
+    }
+
+    async function sendLiveMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('liveChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      const userName = appState.user ? appState.user.name : 'طالب زائر';
+      const userRole = appState.user ? appState.user.role : 'student';
+
+      try {
+        const res = await fetch('/api/live/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: userName, role: userRole, text })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.liveStream.messages = data.messages;
+          const box = document.getElementById('liveChatMessages');
+          if (box) {
+            box.innerHTML = (data.messages || []).map(m => `
+              <div class="p-2.5 rounded-2xl ${m.role === 'teacher' ? 'bg-indigo-50 border border-indigo-100 text-indigo-900' : (m.role === 'supervisor' ? 'bg-emerald-50 border border-emerald-100' : 'bg-slate-50 border border-slate-100')}">
+                <div class="flex items-center justify-between text-[10px] font-bold text-slate-500 mb-0.5">
+                  <span>${m.user} ${m.role === 'teacher' ? '👨‍🏫 (المعلم)' : (m.role === 'supervisor' ? '🛡️ (مشرف)' : '')}</span>
+                  <span>${m.time}</span>
+                </div>
+                <p class="text-xs text-slate-800 font-medium">${m.text}</p>
+              </div>
+            `).join('');
+            box.scrollTop = box.scrollHeight;
+          }
+        }
+      } catch (err) {}
+    }
+
+    async function requestLiveMic() {
+      if (!appState.user) {
+        alert('يرجى تسجيل الدخول كطالب لطلب المايك.');
+        showAuthModal('register');
+        return;
+      }
+      try {
+        const res = await fetch('/api/live/request-mic', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            studentId: appState.user.id,
+            studentName: appState.user.name,
+            grade: appState.user.gradeName || appState.user.grade
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('✅ تم إرسال طلب التحدث بالمايك للمحاضر والمشرفين بنجاح!');
+        }
+      } catch (err) {}
+    }
+
+    async function handleMic(reqId, action) {
+      try {
+        const res = await fetch('/api/live/handle-mic', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reqId, action })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.liveStream.micRequests = data.micRequests;
+          appState.liveStream.currentSpeaker = data.currentSpeaker;
+          renderCurrentView();
+        }
+      } catch (err) {}
+    }
+
+    // TEACHER & SUPERVISOR DASHBOARD (Comprehensive Staff Portal)
+    let staffActiveTab = 'students';
+    function renderStaffDashboard(container) {
+      const isTeacher = appState.user.role === 'teacher';
+      const realCount = appState.students.length;
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          
+          <!-- TOP STAFF BANNER -->
+          <div class="glass-card rounded-3xl p-6 bg-gradient-to-r from-blue-700 via-indigo-700 to-indigo-800 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg shadow-indigo-700/10">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">👨‍🏫</span>
+                <h2 class="text-xl font-black">${appState.user.name}</h2>
+                <span class="px-2 py-0.5 rounded-full bg-white/20 text-[11px] font-bold">${isTeacher ? 'المعلم الرئيسي للمنصة' : 'مشرف معتمد مفوض بالصلاحيات'}</span>
+              </div>
+              <p class="text-xs text-indigo-100 font-medium">كود منصتك للمشاركات والربط: <span class="font-mono font-black text-amber-300">MTH-EGY-2026</span></p>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="/api/export-excel" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+                <span>📊</span> تصدير شيت إكسيل للطلاب
+              </a>
+              <button onclick="switchView('live')" class="px-4 py-2 rounded-xl bg-white text-blue-700 hover:bg-blue-50 text-xs font-black transition flex items-center gap-1.5">
+                <span>🔴</span> استوديو البث المباشر
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB SWITCHER -->
+          <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-3">
+            <button onclick="setStaffTab('students')" class="px-4 py-2 rounded-xl text-xs font-bold ${staffActiveTab === 'students' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-700 border border-slate-200'}">
+              👥 الطلاب المسجلون (${realCount})
+            </button>
+            <button onclick="setStaffTab('supervisors')" class="px-4 py-2 rounded-xl text-xs font-bold ${staffActiveTab === 'supervisors' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-700 border border-slate-200'}">
+              🛡️ إدارة المشرفين والصلاحيات
+            </button>
+            <button onclick="setStaffTab('financials')" class="px-4 py-2 rounded-xl text-xs font-bold ${staffActiveTab === 'financials' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-700 border border-slate-200'}">
+              💳 الحساب البنكي والاشتراكات
+            </button>
+            <button onclick="setStaffTab('content')" class="px-4 py-2 rounded-xl text-xs font-bold ${staffActiveTab === 'content' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-700 border border-slate-200'}">
+              📚 إضافة محاضرات ومذكرات
+            </button>
+            <button onclick="setStaffTab('transactions')" class="px-4 py-2 rounded-xl text-xs font-bold ${staffActiveTab === 'transactions' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-700 border border-slate-200'}">
+              🧾 سجل السداد والأرقام المرجعية
+            </button>
+          </div>
+
+          <!-- TAB CONTENT -->
+          <div id="staffTabContent"></div>
+        </div>
+      `;
+
+      renderStaffTabContent();
+    }
+
+    function setStaffTab(t) {
+      staffActiveTab = t;
+      renderCurrentView();
+    }
+
+    function renderStaffTabContent() {
+      const container = document.getElementById('staffTabContent');
+      if (!container) return;
+
+      if (staffActiveTab === 'students') {
+        renderStaffStudentsTab(container);
+      } else if (staffActiveTab === 'supervisors') {
+        renderStaffSupervisorsTab(container);
+      } else if (staffActiveTab === 'financials') {
+        renderStaffFinancialsTab(container);
+      } else if (staffActiveTab === 'content') {
+        renderStaffContentTab(container);
+      } else if (staffActiveTab === 'transactions') {
+        renderStaffTransactionsTab(container);
+      }
+    }
+
+    // TAB: STUDENTS WITH ZERO INITIAL REAL COUNTER & PERSONAL DOSSIER
+    function renderStaffStudentsTab(container) {
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-black text-base text-slate-900">سجل الطلاب المسجلين</h3>
+              <p class="text-xs text-slate-500">يبدأ العداد بالعد الفعلي مع كل طالب جديد ينضم للمنصة</p>
+            </div>
+            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-xl">إجمالي الطلاب: ${appState.students.length}</span>
+          </div>
+
+          ${appState.students.length === 0 ? `
+            <div class="glass-card rounded-3xl p-10 text-center space-y-3 border border-slate-200">
+              <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl font-bold">
+                👥
+              </div>
+              <h4 class="font-bold text-sm text-slate-800">العداد مصفّر تماماً - جاهز لاستقبال الطلاب الحقيقيين</h4>
+              <p class="text-xs text-slate-500 max-w-sm mx-auto">عند قيام أي طالب بالتسجيل عبر نافذة الانضمام، سيظهر فوراً هنا مع ملفه الشخصي وشات التواصل الخاص معه.</p>
+              <button onclick="showAuthModal('register')" class="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold">
+                + تجربة تسجيل طالب جديد الآن
+              </button>
+            </div>
+          ` : `
+            <div class="glass-card rounded-3xl overflow-hidden border border-slate-200">
+              <div class="overflow-x-auto">
+                <table class="w-full text-right text-xs">
+                  <thead class="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
+                    <tr>
+                      <th class="p-3.5">الطالب</th>
+                      <th class="p-3.5">السنة الدراسية</th>
+                      <th class="p-3.5">هاتف الطالب</th>
+                      <th class="p-3.5">هاتف ولي الأمر</th>
+                      <th class="p-3.5">الاشتراك</th>
+                      <th class="p-3.5 text-center">الإجراءات والملف</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    ${(appState.students || []).map(s => `
+                      <tr class="hover:bg-slate-50/80 transition">
+                        <td class="p-3.5 font-bold text-slate-900">${s.name}</td>
+                        <td class="p-3.5 text-slate-600">${s.gradeName || s.grade}</td>
+                        <td class="p-3.5 font-mono text-slate-700">${s.phone}</td>
+                        <td class="p-3.5 font-mono text-slate-700">${s.parentPhone}</td>
+                        <td class="p-3.5">
+                          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${s.hasPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                            ${s.hasPaid ? 'مفعل (' + (s.subscriptionPlan || 'شهر') + ')' : 'غير مفعل'}
+                          </span>
+                        </td>
+                        <td class="p-3.5 text-center">
+                          <button onclick="openStudentDossier('${s.id}')" class="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs transition flex items-center gap-1 mx-auto">
+                            <span>📄</span> الملف الشامل والشات
+                          </button>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // STUDENT PERSONAL DOSSIER & DIRECT 1-ON-1 CHAT MODAL
+    async function openStudentDossier(studentId) {
+      try {
+        const res = await fetch('/api/student-dossier/' + studentId);
+        const json = await res.json();
+        if (json.success) {
+          const d = json.dossier;
+          const modal = document.getElementById('modalContent');
+          modal.innerHTML = `
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-bold flex items-center justify-center text-base">
+                    ${d.student.name.charAt(0)}
+                  </span>
+                  <div>
+                    <h3 class="text-base font-black text-slate-900">${d.student.name}</h3>
+                    <p class="text-xs text-slate-500">${d.student.gradeName || d.student.grade} • كود: ${d.student.teacherCode}</p>
+                  </div>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+              </div>
+
+              <!-- STATS ROW -->
+              <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-400 block text-[10px]">حالة الاشتراك</span>
+                  <span class="font-bold text-emerald-600">${d.student.hasPaid ? 'مفعل' : 'بانتظار السداد'}</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-400 block text-[10px]">هاتف الطالب</span>
+                  <span class="font-bold font-mono text-slate-800">${d.student.phone}</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-400 block text-[10px]">هاتف ولي الأمر</span>
+                  <span class="font-bold font-mono text-slate-800">${d.student.parentPhone}</span>
+                </div>
+              </div>
+
+              <!-- 1-ON-1 DIRECT CHAT SECTION -->
+              <div class="space-y-2 pt-2">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-xs text-slate-800">💬 محادثة وتواصل مباشر مع الطالب:</h4>
+                  <span class="text-[10px] text-slate-400">محفوظة في السجل</span>
+                </div>
+                
+                <div id="dossierChatBox" class="p-3 rounded-2xl bg-slate-50 border border-slate-200 max-h-48 overflow-y-auto custom-scroll space-y-2 text-xs">
+                  ${d.chats.length === 0 ? '<p class="text-slate-400 text-center py-2">لا توجد رسائل سابقة. ابدأ المحادثة الآن.</p>' : ''}
+                  ${(d.chats || []).map(m => `
+                    <div class="p-2 rounded-xl ${m.senderRole === 'student' ? 'bg-white border border-slate-200' : 'bg-blue-600 text-white'}">
+                      <div class="flex items-center justify-between text-[10px] opacity-75 mb-0.5">
+                        <span>${m.sender}</span>
+                        <span>${m.time}</span>
+                      </div>
+                      <p class="font-medium">${m.text}</p>
+                    </div>
+                  `).join('')}
+                </div>
+
+                <div class="flex items-center gap-2 pt-1">
+                  <input type="text" id="dossierChatInput" placeholder="اكتب توجيهاً أو رسالة خاصة للطالب..." class="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-600" />
+                  <button onclick="sendDossierMessage('${d.student.id}')" class="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition">
+                    إرسال
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          document.getElementById('modalOverlay').classList.remove('hidden');
+        }
+      } catch (err) {
+        alert('تعذر فتح الملف الشامل: ' + err.message);
+      }
+    }
+
+    async function sendDossierMessage(studentId) {
+      const input = document.getElementById('dossierChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      const senderName = appState.user ? appState.user.name : 'المعلم';
+      const senderRole = appState.user ? appState.user.role : 'teacher';
+
+      try {
+        const res = await fetch('/api/student-chat/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ studentId, sender: senderName, senderRole, text })
+        });
+        const data = await res.json();
+        if (data.success) {
+          const box = document.getElementById('dossierChatBox');
+          if (box) {
+            box.innerHTML = (data.messages || []).map(m => `
+              <div class="p-2 rounded-xl ${m.senderRole === 'student' ? 'bg-white border border-slate-200' : 'bg-blue-600 text-white'}">
+                <div class="flex items-center justify-between text-[10px] opacity-75 mb-0.5">
+                  <span>${m.sender}</span>
+                  <span>${m.time}</span>
+                </div>
+                <p class="font-medium">${m.text}</p>
+              </div>
+            `).join('');
+            box.scrollTop = box.scrollHeight;
+          }
+        }
+      } catch (err) {}
+    }
+
+    // STUDENT'S OWN PERSONAL DOSSIER
+    function openPersonalProfile() {
+      if (appState.user && appState.user.role === 'student') {
+        openStudentDossier(appState.user.id);
+      } else {
+        alert(`الحساب الحالي: ${appState.user.name} (${appState.user.role})`);
+      }
+    }
+
+    // TAB: SUPERVISORS MANAGEMENT
+    function renderStaffSupervisorsTab(container) {
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-black text-base text-slate-900">إدارة المشرفين والصلاحيات</h3>
+              <p class="text-xs text-slate-500">أضف مشرفين للتحكم بالمنصة وإدارة البث المباشر والرد على الطلاب نيابة عنك</p>
+            </div>
+            <button onclick="showAddSupervisorModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+              <span>+</span> إضافة مشرف جديد
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            ${(appState.supervisors || []).map(s => `
+              <div class="glass-card rounded-2xl p-4 border border-slate-200 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs">
+                      🛡️
+                    </span>
+                    <div>
+                      <h4 class="font-bold text-xs text-slate-900">${s.name}</h4>
+                      <p class="text-[10px] text-slate-400">${s.roleTitle}</p>
+                    </div>
+                  </div>
+                  <button onclick="deleteSupervisor('${s.id}')" class="text-rose-500 hover:text-rose-700 text-xs font-bold">حذف</button>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 text-[11px] font-mono space-y-0.5 text-slate-700">
+                  <p>البريد: ${s.email}</p>
+                  <p>كلمة المرور: ${s.password}</p>
+                </div>
+                <div class="pt-1 flex flex-wrap gap-1">
+                  ${(s.permissions || []).map(p => `
+                    <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 text-[10px] font-bold">${p}</span>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function showAddSupervisorModal() {
+      const modal = document.getElementById('modalContent');
+      modal.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 class="text-base font-black text-slate-900">إضافة مشرف جديد للمنصة</h3>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+          </div>
+
+          <form onsubmit="handleAddSupervisor(event)" class="space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">اسم المشرف *</label>
+              <input type="text" id="supName" required placeholder="مثال: أ/ محمد محمود" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-600" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">البريد الإلكتروني المخصص للدخول *</label>
+              <input type="email" id="supEmail" required placeholder="supervisor2@edumaster.pro" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-600" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">كلمة المرور *</label>
+              <input type="text" id="supPass" required value="pass1234" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-600 font-mono" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">المسمى الوظيفي للمشرف:</label>
+              <input type="text" id="supRole" value="مشرف متابعة واختبارات" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-600" />
+            </div>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition">
+              حفظ وتفويض المشرف فوراً
+            </button>
+          </form>
+        </div>
+      `;
+      document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    async function handleAddSupervisor(e) {
+      e.preventDefault();
+      const name = document.getElementById('supName').value.trim();
+      const email = document.getElementById('supEmail').value.trim();
+      const password = document.getElementById('supPass').value.trim();
+      const roleTitle = document.getElementById('supRole').value.trim();
+
+      try {
+        const res = await fetch('/api/add-supervisor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password, roleTitle })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.supervisors = data.supervisors;
+          alert('✅ تم إضافة المشرف بنجاح! يستطيع الآن الدخول فوراً بالبريد وكلمة المرور.');
+          closeModal();
+          renderCurrentView();
+        } else {
+          alert(data.message || 'خطأ في إضافة المشرف');
+        }
+      } catch (err) {
+        alert('تعذر الإضافة: ' + err.message);
+      }
+    }
+
+    async function deleteSupervisor(id) {
+      if (!confirm('هل أنت متأكد من حذف هذا المشرف؟')) return;
+      try {
+        const res = await fetch('/api/delete-supervisor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.supervisors = data.supervisors;
+          renderCurrentView();
+        }
+      } catch (err) {}
+    }
+
+    // TAB: TEACHER FINANCIALS & SUBSCRIPTION PLANS PRICING
+    function renderStaffFinancialsTab(container) {
+      const f = appState.teacherFinancials || {};
+      const plans = f.plans || [];
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-black text-base text-slate-900">إعدادات البطاقة البنكية والاشتراكات</h3>
+              <p class="text-xs text-slate-500">حدد معلومات السداد وأسعار باقات الاشتراكات الشهرية والسنوية</p>
+            </div>
+            <button onclick="saveFinancials()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition">
+              💾 حفظ التعديلات
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- BANK DETAILS FORM -->
+            <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-3">
+              <h4 class="font-bold text-xs text-slate-800">بيانات الحساب والبطاقة البنكية:</h4>
+              
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1">اسم البنك:</label>
+                <input type="text" id="finBank" value="${f.bankName || 'البنك الأهلي المصري'}" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-semibold outline-none focus:border-blue-600" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1">اسم صاحب الحساب / المعلم:</label>
+                <input type="text" id="finHolder" value="${f.accountHolder || 'أ/ أحمد فؤاد النجار'}" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-semibold outline-none focus:border-blue-600" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1">رقم البطاقة البنكية / الحساب:</label>
+                <input type="text" id="finCard" value="${f.cardNumber || '5241 •••• •••• 9821'}" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-semibold outline-none focus:border-blue-600" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1">حساب إنستاباي (InstaPay):</label>
+                <input type="text" id="finInsta" value="${f.instapay || 'ahmed.fouad@instapay'}" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-semibold outline-none focus:border-blue-600" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1">رقم فودافون كاش للمنصة:</label>
+                <input type="tel" id="finVoda" value="${f.vodafoneCash || '01012345678'}" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-semibold outline-none focus:border-blue-600" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1">تعليمات التحويل للطلاب:</label>
+                <textarea id="finInstructions" rows="2" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-medium outline-none focus:border-blue-600">${f.instructions || ''}</textarea>
+              </div>
+            </div>
+
+            <!-- PLANS PRICING -->
+            <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-3">
+              <h4 class="font-bold text-xs text-slate-800">تخصيص أسعار باقات الاشتراكات (بالجنيه):</h4>
+              
+              <div class="space-y-3">
+                ${(plans || []).map((p, idx) => `
+                  <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+                    <div>
+                      <h5 class="font-bold text-xs text-slate-900">${p.name}</h5>
+                      <p class="text-[10px] text-slate-400">${p.desc}</p>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                      <input type="number" id="planPrice_${idx}" value="${p.price}" class="w-20 px-2 py-1.5 rounded-lg border border-slate-300 text-xs font-bold text-center outline-none focus:border-blue-600" />
+                      <span class="text-xs font-bold text-slate-500">ج.م</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    async function saveFinancials() {
+      const bankName = document.getElementById('finBank').value.trim();
+      const accountHolder = document.getElementById('finHolder').value.trim();
+      const cardNumber = document.getElementById('finCard').value.trim();
+      const instapay = document.getElementById('finInsta').value.trim();
+      const vodafoneCash = document.getElementById('finVoda').value.trim();
+      const instructions = document.getElementById('finInstructions').value.trim();
+
+      let plans = appState.teacherFinancials.plans;
+      plans.forEach((p, idx) => {
+        const input = document.getElementById('planPrice_' + idx);
+        if (input) p.price = Number(input.value) || p.price;
+      });
+
+      try {
+        const res = await fetch('/api/teacher/financials', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bankName, accountHolder, cardNumber, instapay, vodafoneCash, instructions, plans })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.teacherFinancials = data.financials;
+          alert('✅ تم حفظ بيانات الحساب البنكي والأسعار بنجاح!');
+        }
+      } catch (err) {
+        alert('تعذر الحفظ: ' + err.message);
+      }
+    }
+
+    // TAB: CONTENT CREATION (ADD VIDEO / ADD BOOK)
+    function renderStaffContentTab(container) {
+      container.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- ADD VIDEO FORM -->
+          <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-3">
+            <h4 class="font-black text-xs text-slate-900 flex items-center gap-1.5">
+              <span>📹</span> إضافة محاضرة فيديو حقيقية
+            </h4>
+            <form onsubmit="handleAddVideo(event)" class="space-y-2.5 text-xs">
+              <div>
+                <label class="block font-bold text-slate-600 mb-1">عنوان المحاضرة *</label>
+                <input type="text" id="vidTitle" required placeholder="مثال: شرح درس التفاضل والتكامل وقوانين الاشتقاق" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none focus:border-blue-600 font-semibold" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-600 mb-1">المرحلة الدراسية:</label>
+                <select id="vidGrade" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none bg-white font-semibold">
+                  ${(appState.grades || []).map(g => `<option value="${g.name}">${g.name}</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block font-bold text-slate-600 mb-1">مدة المحاضرة:</label>
+                <input type="text" id="vidDuration" value="50 دقيقة" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none focus:border-blue-600" />
+              </div>
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition">
+                + رفع ونشر المحاضرة
+              </button>
+            </form>
+          </div>
+
+          <!-- ADD BOOK FORM -->
+          <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-3">
+            <h4 class="font-black text-xs text-slate-900 flex items-center gap-1.5">
+              <span>📖</span> إضافة مذكرة / كتاب شامل
+            </h4>
+            <form onsubmit="handleAddBook(event)" class="space-y-2.5 text-xs">
+              <div>
+                <label class="block font-bold text-slate-600 mb-1">عنوان المذكرة *</label>
+                <input type="text" id="bookTitle" required placeholder="مثال: بنك أسئلة الرياضيات الذهبية" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none focus:border-blue-600 font-semibold" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-600 mb-1">المرحلة الدراسية:</label>
+                <select id="bookGrade" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none bg-white font-semibold">
+                  ${(appState.grades || []).map(g => `<option value="${g.name}">${g.name}</option>`).join('')}
+                </select>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block font-bold text-slate-600 mb-1">عدد الصفحات:</label>
+                  <input type="number" id="bookPages" value="45" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none" />
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-600 mb-1">السعر (0 = مجانية):</label>
+                  <input type="number" id="bookPrice" value="0" class="w-full px-3 py-2 rounded-xl border border-slate-300 outline-none" />
+                </div>
+              </div>
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition">
+                + نشر المذكرة للطلاب
+              </button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    async function handleAddVideo(e) {
+      e.preventDefault();
+      const title = document.getElementById('vidTitle').value.trim();
+      const grade = document.getElementById('vidGrade').value;
+      const duration = document.getElementById('vidDuration').value.trim();
+
+      try {
+        const res = await fetch('/api/teacher/add-video', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, grade, duration })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.videos = data.videos;
+          alert('✅ تم نشر المحاضرة بنجاح!');
+          renderCurrentView();
+        }
+      } catch (err) {}
+    }
+
+    async function handleAddBook(e) {
+      e.preventDefault();
+      const title = document.getElementById('bookTitle').value.trim();
+      const grade = document.getElementById('bookGrade').value;
+      const pages = document.getElementById('bookPages').value;
+      const price = document.getElementById('bookPrice').value;
+
+      try {
+        const res = await fetch('/api/teacher/add-book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, grade, pages, price })
+        });
+        const data = await res.json();
+        if (data.success) {
+          appState.books = data.books;
+          alert('✅ تم نشر المذكرة بنجاح!');
+          renderCurrentView();
+        }
+      } catch (err) {}
+    }
+
+    // TAB: PAYMENT TRANSACTIONS & AUTO REFERENCE CODES
+    function renderStaffTransactionsTab(container) {
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-black text-base text-slate-900">سجل العمليات المالية والأرقام المرجعية</h3>
+            <span class="text-xs text-slate-500 font-bold">العمليات: ${appState.paymentTransactions.length}</span>
+          </div>
+
+          ${appState.paymentTransactions.length === 0 ? `
+            <div class="glass-card rounded-2xl p-8 text-center text-xs text-slate-400">
+              لا توجد عمليات سداد مسجلة حتى الآن. ستظهر هنا فور طلب أي طالب للاشتراك.
+            </div>
+          ` : `
+            <div class="glass-card rounded-2xl overflow-hidden border border-slate-200">
+              <div class="overflow-x-auto">
+                <table class="w-full text-right text-xs">
+                  <thead class="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
+                    <tr>
+                      <th class="p-3">الرقم المرجعي</th>
+                      <th class="p-3">الطالب</th>
+                      <th class="p-3">الباقة</th>
+                      <th class="p-3">المبلغ</th>
+                      <th class="p-3">الحالة</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 font-medium">
+                    ${(appState.paymentTransactions || []).map(t => `
+                      <tr>
+                        <td class="p-3 font-mono font-bold text-blue-600">${t.refCode}</td>
+                        <td class="p-3 text-slate-900 font-bold">${t.studentName}</td>
+                        <td class="p-3 text-slate-600">${t.planName}</td>
+                        <td class="p-3 font-bold">${t.amount} ${t.currency}</td>
+                        <td class="p-3">
+                          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${t.status === 'completed' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                            ${t.status === 'completed' ? 'مكتملة ومفعلة' : 'بانتظار التأكيد'}
+                          </span>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // WHAT'S NEW MODAL
+    function openWhatsNewModal() {
+      const modal = document.getElementById('modalContent');
+      modal.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">✨</span>
+              <h3 class="text-base font-black text-slate-900">ما الجديد في منصة EduMaster Pro؟</h3>
+            </div>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+          </div>
+
+          <div class="space-y-3">
+            ${(appState.whatsNew || []).map(w => `
+              <div class="p-3.5 rounded-2xl bg-blue-50/60 border border-blue-100 space-y-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-xs text-blue-950">${w.title}</h4>
+                  <span class="text-[10px] text-blue-500 font-semibold">${w.date}</span>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed">${w.desc}</p>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="pt-2">
+            <button onclick="closeModal()" class="w-full py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold transition">
+              حسناً، ابدأ التصفح
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    // GITHUB SYNC & SOURCE CODE COMPRESSION MODAL
+    function openGitHubModal() {
+      const modal = document.getElementById('modalContent');
+      modal.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-slate-900" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <h3 class="text-base font-black text-slate-900">ضغط الكود ومزامنة مستودع GitHub</h3>
+            </div>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-blue-50/80 border border-blue-200 text-xs space-y-2">
+            <p class="font-bold text-blue-900">📦 تحميل الكود مضغوطاً بضغطة زر واحدة:</p>
+            <a href="/api/download-zip" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold flex items-center justify-center gap-1.5 shadow-sm transition">
+              <span>📥</span> تنزيل أرشيف المشروع كاملاً (EduMasterPro.zip)
+            </a>
+          </div>
+
+          <div class="space-y-2.5 text-xs">
+            <h4 class="font-bold text-slate-800">أو المزامنة المباشرة مع GitHub API:</h4>
+            
+            <div>
+              <label class="block text-slate-600 font-bold mb-1">رابط مستودع GitHub:</label>
+              <input type="url" id="ghUrl" placeholder="https://github.com/username/my-edumaster-repo.git" value="https://github.com/edumaster-egypt/edumaster-pro.git" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs outline-none focus:border-blue-600" />
+            </div>
+
+            <div>
+              <label class="block text-slate-600 font-bold mb-1">رمز الوصول الشخصي (GitHub Personal Access Token):</label>
+              <input type="password" id="ghToken" placeholder="ghp_••••••••••••••••••••••••" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs outline-none focus:border-blue-600" />
+            </div>
+
+            <div>
+              <label class="block text-slate-600 font-bold mb-1">رسالة التحديث (Commit Message):</label>
+              <input type="text" id="ghMsg" value="إطلاق منصة EduMaster Pro بتصميم مشرق وعصري وألوان زاهية" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:border-blue-600" />
+            </div>
+
+            <button onclick="syncToGitHub()" id="btnSyncGh" class="w-full py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black transition flex items-center justify-center gap-2">
+              <span>🚀</span> ضغط ومزامنة الكود مع GitHub تلقائياً
+            </button>
+
+            <div id="ghLogBox" class="hidden p-3 rounded-xl bg-slate-900 text-emerald-400 font-mono text-[11px] max-h-32 overflow-y-auto space-y-1"></div>
+          </div>
+        </div>
+      `;
+      document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    async function syncToGitHub() {
+      const repoUrl = document.getElementById('ghUrl').value.trim();
+      const token = document.getElementById('ghToken').value.trim();
+      const commitMsg = document.getElementById('ghMsg').value.trim();
+      const btn = document.getElementById('btnSyncGh');
+      const logBox = document.getElementById('ghLogBox');
+
+      btn.disabled = true;
+      btn.innerText = 'جاري ضغط الكود والمزامنة مع GitHub...';
+      logBox.classList.remove('hidden');
+      logBox.innerHTML = '<p>📦 جاري ضغط ملفات المشروع...</p>';
+
+      try {
+        const res = await fetch('/api/compress-and-upload-github', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ repoUrl, token, commitMsg })
+        });
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerText = '🚀 ضغط ومزامنة الكود مع GitHub تلقائياً';
+        if (data.logs) {
+          logBox.innerHTML = (data.logs || []).map(l => `<p>${l}</p>`).join('');
+        }
+        if (data.success) {
+          alert('✅ تمت عملية ضغط الكود والمزامنة بنجاح!');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerText = '🚀 ضغط ومزامنة الكود مع GitHub تلقائياً';
+        logBox.innerHTML += `<p class="text-rose-400">خطأ: ${err.message}</p>`;
+      }
+    }
+
+    // RUN ON LOAD
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
